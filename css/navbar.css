@@ -1,0 +1,48 @@
+
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    margin-right: 0;
+    background: #343a40;
+    color: #fff;
+    padding: 1em;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+.sidebar .nav-link {
+    color: #adb5bd;
+}
+.sidebar .nav-link.active, .sidebar .nav-link:hover {
+    color: #fff;
+    background: #495057;
+}
+.sidebar .nav-link i {
+    margin-right: 8px;
+}
+
+/* Quando a sidebar for "escondida", ela terá uma largura de 0 e transição suave */
+.sidebar-hidden {
+    width: 0;
+    padding: 0;
+    margin-right: 2em;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.toggle-sidebar{
+    cursor: pointer;
+}
+
+#toggle-sidebar-open{
+    position: absolute;
+    transition: width 0.3s ease;
+}
+
+.ocult{
+    top: 0;
+    right: 100%;
+}
+.visible{
+    top: 20px;
+    left: 10px;
+}

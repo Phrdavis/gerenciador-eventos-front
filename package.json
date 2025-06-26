@@ -1,0 +1,17 @@
+{
+  "name": "EventEase",
+  "version": "1.0.0",
+  "description": "Sistema para controle e gestão de eventos",
+  "main": "home.html",
+  "scripts": {
+    "start": "live-server --open=home.html"
+  },
+  "author": "Davi Pinheiro de Souza",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "apexcharts": "^4.7.0"
+  }
+}
