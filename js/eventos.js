@@ -1,23 +1,24 @@
 $(document).ready(async function () {
 
-    aplicarFiltroTabela("search-evento-input", "table-eventos")
-
     const actionsEventos = [
         {
             label: "Filtro",
-            icon: "bi bi-filter"
+            icon: "bi bi-filter",
+            disabled: true
         },
         {
             label: "Incluir",
-            icon: "bi bi-plus"
+            icon: "bi bi-plus",
+            action: ()=>{ modalIncluiEventoOpen() },
+            disabled: false
         },
         {
             label: "importar",
-            icon: "bi bi-upload"
+            icon: "bi bi-upload",
+            action: ()=>{ modalImportaEventosOpen() },
+            disabled: false
         }
     ]
-
-    actionsMenuDrop(document.querySelector('.drop-actions-menu'), actionsEventos);
 
     function carregarEventos(){
 
@@ -61,11 +62,9 @@ $(document).ready(async function () {
 
     }
 
-    $('#import-eventos-btn').on('click', function () {
-
+    function modalImportaEventosOpen(){
         $('#modalImportarArquivo').modal('show');
-
-    })
+    }
 
     $('#form-importar').on('submit', function (e) {
         e.preventDefault();
@@ -101,14 +100,14 @@ $(document).ready(async function () {
         });
     });
 
-    $("#add-evento-btn").on("click", function(){
+    function modalIncluiEventoOpen(){
 
         $('#eventoForm')[0].reset();
         $('#evento_id').val("");
         $('#eventoModalLabel').html("Incluir Evento");
         $('#eventoModal').modal('show');
 
-    })
+    }
 
     $('#table-eventos').on('click', '.btn-detalhes-evento', function () {
         const eventoId = $(this).data('id');
@@ -205,6 +204,14 @@ $(document).ready(async function () {
         });
     });
 
-    carregarEventos();
+    function onInit(){
+        
+        aplicarFiltroTabela("search-evento-input", "table-eventos")
+        actionsMenuDrop(document.querySelector('.drop-actions-menu'), actionsEventos);
+        carregarEventos();
+    }
+
+    onInit()
+
 });
 

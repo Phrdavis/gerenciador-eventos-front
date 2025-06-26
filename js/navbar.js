@@ -10,6 +10,14 @@
             link: "eventos.html",
             isActive: currentPage === "eventos.html",
             disabled: false
+        },
+        {
+            icon: "bi bi-file-earmark-richtext",
+            icon_active: "bi bi-file-earmark-richtext-fill",
+            label: "Contratos",
+            link: "contratos.html",
+            isActive: currentPage === "contratos.html",
+            disabled: false
         }
     ];
 

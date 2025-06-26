@@ -31,3 +31,6 @@ body {
     justify-content: start;
 }
 
+li:has(.disabled) {
+    cursor: not-allowed;
+}

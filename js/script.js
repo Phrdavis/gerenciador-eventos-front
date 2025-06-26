@@ -61,13 +61,17 @@ function actionsMenuDrop(element, options){
     var ul = document.createElement('ul');
     ul.className = 'menu-actions dropdown-menu';
     options.forEach(option => {
+
         var li = document.createElement('li');
-        var a = document.createElement('a');
-        a.className = 'item-action dropdown-item';
-        a.href = '#';
-        a.innerHTML = `<i class="icon-action ${option.icon}"></i> ${option.label}`;
-        a.addEventListener('click', option.action);
-        li.appendChild(a);
+        var button = document.createElement('button');
+        button.className = 'item-action dropdown-item';
+        if (option.disabled) {
+            button.className += ' disabled';
+        }
+        button.href = '#';
+        button.innerHTML = `<i class="icon-action ${option.icon}"></i> ${option.label}`;
+        button.addEventListener('click', option.action);
+        li.appendChild(button);
         ul.appendChild(li);
     });
     menu.appendChild(ul);
