@@ -33,7 +33,8 @@ $(document).ready(async function () {
                         <td>${limitarTexto(contrato.descricao, 50) || '-'}</td>
                         <td>${formatarData(contrato.dataInicio) || '-'}</td>
                         <td>${formatarData(contrato.dataFim) || '-'}</td>
-                        <td>
+                        <td class="text-center"><span class="badge-modalidades m-auto badge bg-opacity-25 fw-bold bg-success text-success rounded">${contrato.modalidades?.length || '0'}</span></td>
+                        <td class="text-center">
                             <div class="dropdown">
                                 <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots"></i>
@@ -66,7 +67,8 @@ $(document).ready(async function () {
             $('#contrato_inicio').val(contrato.dataInicio);
             $('#contrato_fim').val(contrato.dataFim);
             $('#contratoModalLabel').html(`${contrato.id} - ${contrato.nome}`);
-
+            $('#table_modalidades tbody').empty();
+            carregaModalidadesTable(contrato.modalidades);
             $('#contratoModal').modal('show');
         }).fail(function (erro) {
             appendAlert(erro.responseJSON.erro, "danger")
@@ -78,6 +80,7 @@ $(document).ready(async function () {
         $('#contratoForm')[0].reset();
         $('#contrato_id').val("");
         $('#contratoModalLabel').html("Incluir Contrato");
+        $('#table_modalidades tbody').empty();
         $('#contratoModal').modal('show');
 
     }
@@ -116,7 +119,16 @@ $(document).ready(async function () {
             descricao: $('#contrato_descricao').val(),
             dataInicio: $('#contrato_inicio').val(),
             dataFim: $('#contrato_fim').val(),
+            modalidades: $('#table_modalidades tbody tr').map(function() {
+                return { 
+                    id: $(this).find('input[type="hidden"]').val(), 
+                    nome: $(this).find('td').eq(0).text().trim(), 
+                    valor: $(this).find('td').eq(1).text().trim() 
+                }
+            }).get()
         };
+
+        console.log(contrato)
 
         const metodo = isEdicao ? 'PUT' : 'POST';
         const url = isEdicao 
@@ -141,6 +153,65 @@ $(document).ready(async function () {
             }
         });
     });
+    
+    $('#modalidade_adicionar').on('click', function () {
+
+        var nome = $('#modalidade_nome').val();
+        var valor = $('#modalidade_valor').val();
+
+        
+        if (nome && valor) {
+            
+            var exists = false;
+            $('#table_modalidades tbody tr').each(function() {
+                var existingNome = $(this).find('td').eq(0).text();
+                var existingValor = $(this).find('td').eq(1).text();
+                if (existingNome === nome && existingValor === valor) {
+                    exists = true;
+                    return false;
+                }
+            });
+
+            if (!exists) {
+                
+                var newRow = `
+                    <tr>
+                        <td>${nome}</td>
+                        <td>${valor}</td>
+                        <td class="text-center"><div class="btn btn-danger btn-excluir"><i class="bi bi-trash"></i></div></td>
+                    </tr>
+                `;
+
+                $('#table_modalidades tbody').append(newRow);
+
+                $('#modalidade_nome').val('');
+                $('#modalidade_valor').val('');
+            } else {
+                alert("Essa combinação de Nome e Valor já existe na tabela.");
+            }
+        } else {
+            alert("Por favor, preencha todos os campos.");
+        }
+    });
+
+    $('#table_modalidades').on('click', '.btn-excluir', function () {
+        
+        $(this).closest('tr').remove();
+    });
+
+    function carregaModalidadesTable(modalidades){
+        modalidades.forEach(modalidade => {
+            var newRow = `
+                <tr>
+                    <input type="hidden" value="${modalidade.id}">
+                    <td>${modalidade.nome}</td>
+                    <td>${modalidade.valor}</td>
+                    <td class="text-center"><div class="btn btn-danger btn-excluir"><i class="bi bi-trash"></i></div></td>
+                </tr>
+            `;
+            $('#table_modalidades tbody').append(newRow);
+        });
+    }
 
     onInit();
 

@@ -79,3 +79,129 @@ function actionsMenuDrop(element, options){
     element.appendChild(menu);
 
 }
+
+function resetMultSelect(element, hiddenElement = null) {
+
+    if(element != null){
+
+        const checkboxes = element.querySelectorAll('.dropdown-mult-select-content input[type="checkbox"]');
+        
+        // Desmarque todos os checkboxes
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+    
+        // Limpar as tags visuais (opções selecionadas)
+        const selectedOptionsDiv = element.querySelector('.dropdown-mult-select-button');
+        if(selectedOptionsDiv != null){
+    
+            selectedOptionsDiv.innerHTML = "Selecione as opções"; // Ou qualquer texto inicial
+        }
+    
+        // Limpar o campo oculto (se fornecido)
+        if (hiddenElement !== null) {
+            const hiddenInput = $(hiddenElement);
+            if (hiddenInput) {
+                hiddenInput.val('');
+            }
+        }
+
+    }
+
+}
+
+function criaMultSelect(element, options, hiddenElement = null){
+
+    const limitShowOptions = 3;
+    const dropdown = document.createElement("div");
+    dropdown.classList.add("dropdown-mult-select");
+
+    const button = document.createElement("div");
+    button.classList.add("dropdown-mult-select-button");
+    let textInicial = "Selecione as opções";
+    button.textContent = textInicial;
+    dropdown.append(button);
+
+    const content = document.createElement("div");
+    content.classList.add("dropdown-mult-select-content");
+    options.forEach(option => {
+        const label = document.createElement("label");
+        label.classList.add("mult-select-checkbox");
+        label.innerHTML = `<input type="checkbox" data-label="${option.label}" name="${option.value}" value="${option.value}"> ${option.label}`;
+        content.append(label);
+    });
+    dropdown.append(content);
+
+
+    if(element != null){
+
+        element.innerHTML = '';
+        element.appendChild(dropdown);
+
+    }
+
+    // Função para alternar o dropdown
+    button.addEventListener("click", function() {
+        dropdown.classList.toggle("active");
+    });
+
+    // Função para capturar as opções selecionadas
+    const checkboxes = dropdown.querySelectorAll('.dropdown-mult-select-content input[type="checkbox"]');
+    const selectedOptionsDiv = button;
+    const hiddenInput = $(hiddenElement);
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectedOptions);
+    });
+
+    function createTag(label, close = true) {
+        return `<span class="badge bg-primary bg-opacity-25 text-primary rounded-pill p-2 m-1">${label} ${close ? '<i class="tag-mult-close bi bi-x-lg"></i>' : ''}</span>`;
+    }
+
+    function updateSelectedOptions() {
+        const selectedOptions = [];
+        const selectedValues = [];
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                selectedValues.push(checkbox.value);
+                var tag = createTag(checkbox.dataset.label);
+                selectedOptions.push(tag);
+            }
+        });
+
+        if (hiddenInput != null) {
+            hiddenInput.val(selectedValues.join(','));
+            console.log(hiddenInput.val())
+        }
+
+        if (selectedOptions.length == 0) {
+
+            selectedOptionsDiv.innerHTML = textInicial;
+
+        } else {
+
+            if (selectedOptions.length > limitShowOptions) {
+                selectedOptionsDiv.innerHTML = selectedOptions.slice(0, limitShowOptions).join(' ') + createTag('+' + selectedOptions.slice(limitShowOptions, selectedOptions.length).length, false);
+
+            } else {
+                selectedOptionsDiv.innerHTML = selectedOptions.join(' ');
+            }
+
+        }
+
+        const closeButtons = selectedOptionsDiv.querySelectorAll('.tag-mult-close');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault()
+                const label = event.target.parentElement;
+                const checkbox = dropdown.querySelector(`input[data-label="${label.textContent.trim()}"]`);
+                if (checkbox) {
+                    checkbox.checked = false; // Desmarca o checkbox
+                }
+                label.remove(); // Remove a tag visual
+                updateSelectedOptions(); // Atualiza a seleção
+            });
+        });
+    }
+    
+}

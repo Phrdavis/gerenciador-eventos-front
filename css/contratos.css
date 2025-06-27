@@ -4,7 +4,7 @@
     background-color: #f9fafb;
 }
 
-#table-contratos {
+.table-style {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
@@ -12,11 +12,11 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-#table-contratos thead {
+.table-style thead {
     background-color: #334155;
 }
 
-#table-contratos thead th {
+.table-style thead th {
     padding: 1rem;
     text-align: left;
     font-weight: 600;
@@ -25,19 +25,34 @@
     border-bottom: 1px solid #e2e8f0;
 }
 
-#table-contratos tbody td {
+.table-style tbody td {
     padding: 0.9rem 1rem;
     font-size: 0.88rem;
     color: #475569;
     border-bottom: 1px solid #f1f5f9;
 }
 
-#table-contratos tbody tr:hover {
+.table-style tbody tr:hover {
     background-color: #f0f9ff;
     transition: background 0.3s ease;
     cursor: pointer;
 }
 
-#table-contratos tbody tr:last-child td {
+.table-style tbody tr:last-child td {
     border-bottom: none;
+}
+
+.badge-modalidades{
+    width: 3em;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-modalidades{
+
+    max-height: 150px;
+    overflow: auto;
+
 }

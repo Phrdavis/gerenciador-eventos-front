@@ -40,7 +40,7 @@ $(document).ready(async function () {
                         <td>${evento.horaFim || '-'}</td>
                         <td>${limitarTexto(evento.local, 20) || '-'}</td>
                         <td>${evento.responsavel || '-'}</td>
-                        <td>
+                        <td class="text-center">
                             <div class="dropdown">
                                 <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots"></i>
