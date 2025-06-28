@@ -33,7 +33,7 @@ $(document).ready(async function () {
                         <td>${limitarTexto(contrato.descricao, 50) || '-'}</td>
                         <td>${formatarData(contrato.dataInicio) || '-'}</td>
                         <td>${formatarData(contrato.dataFim) || '-'}</td>
-                        <td class="text-center"><span class="badge-modalidades m-auto badge bg-opacity-25 fw-bold bg-success text-success rounded">${contrato.modalidades?.length || '0'}</span></td>
+                        <td class="text-center"><span class="badge-modalidades m-auto badge bg-opacity-25 fw-bold bg-${modalidadesBadge(contrato.modalidades?.length)} text-${modalidadesBadge(contrato.modalidades?.length)} rounded">${contrato.modalidades?.length || '0'}</span></td>
                         <td class="text-center">
                             <div class="dropdown">
                                 <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -83,6 +83,17 @@ $(document).ready(async function () {
         $('#table_modalidades tbody').empty();
         $('#contratoModal').modal('show');
 
+    }
+
+    function modalidadesBadge(qtd) {
+        switch (qtd){
+            case 0:
+                return 'danger'
+            case 1:
+                return 'warning'
+            default:
+                return 'success'
+        }
     }
 
     $('#table-contratos').on('click', '.btn-delete-contrato', async function(e) {
