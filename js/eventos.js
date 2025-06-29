@@ -111,29 +111,7 @@ $(document).ready(async function () {
 
     $('#table-eventos').on('click', '.btn-detalhes-evento', function () {
         const eventoId = $(this).data('id');
-
-        $.get(`http://localhost:8081/api/eventos/${eventoId}`, function (evento) {
-            
-            $('#evento_id').val(evento.id);
-            $('#evento_nome').val(evento.nome);
-            $('#evento_numSolicitacao').val(evento.numSolicitacao);
-            $('#evento_destino').val(evento.destino);
-            $('#evento_descricao').val(evento.descricao);
-            $('#evento_data').val(evento.data);
-            $('#evento_inicio').val(evento.inicio);
-            $('#evento_fim').val(evento.fim);
-            $('#evento_horaInicio').val(evento.horaInicio);
-            $('#evento_horaFim').val(evento.horaFim);
-            $('#evento_local').val(evento.local);
-            $('#evento_responsavel').val(evento.responsavel);
-            $('#evento_telefone').val(formatarTelefone(evento.telefoneResponsavel));
-            $('#evento_telefone').mask('(00) 00000-0000'); 
-            $('#eventoModalLabel').html(`${evento.numSolicitacao} - ${evento.nome}`);
-
-            $('#eventoModal').modal('show');
-        }).fail(function (erro) {
-            appendAlert(erro.responseJSON.erro, "danger")
-        });
+        window.location.href = `eventos-detalhes.html?id=${eventoId}`;
     });
 
     $('#table-eventos').on('click', '.btn-delete-evento', async function(e) {

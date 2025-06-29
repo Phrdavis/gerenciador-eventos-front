@@ -4,6 +4,22 @@
 
     const sidebarItems = [
         {
+            icon: "bi bi-bar-chart-line",
+            icon_active: "bi bi-bar-chart-line-fill",
+            label: "Dashboard",
+            link: "#",
+            isActive: currentPage === "dashboard.html",
+            disabled: true
+        },
+        {
+            icon: "bi bi-file-earmark-richtext",
+            icon_active: "bi bi-file-earmark-richtext-fill",
+            label: "Contratos",
+            link: "contratos.html",
+            isActive: currentPage === "contratos.html",
+            disabled: false
+        },
+        {
             icon: "bi bi-calendar-event",
             icon_active: "bi bi-calendar-event-fill",
             label: "Eventos",
@@ -12,11 +28,11 @@
             disabled: false
         },
         {
-            icon: "bi bi-file-earmark-richtext",
-            icon_active: "bi bi-file-earmark-richtext-fill",
-            label: "Contratos",
-            link: "contratos.html",
-            isActive: currentPage === "contratos.html",
+            icon: "bi bi-people",
+            icon_active: "bi bi-people-fill",
+            label: "Tecnicos",
+            link: "tecnicos.html",
+            isActive: currentPage === "tecnicos.html",
             disabled: false
         }
     ];

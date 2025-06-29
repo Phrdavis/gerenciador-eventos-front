@@ -33,6 +33,7 @@ body {
 
 li:has(.disabled) {
     cursor: not-allowed;
+    opacity: 0.5;
 }
 
 
@@ -82,4 +83,62 @@ li:has(.disabled) {
 
 .selected-options {
     margin-top: 10px;
+}
+
+.tabs{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    list-style-type: none;
+    padding: 0;
+    border-bottom: 1px solid #343a4075;
+}
+
+.tab-item{
+    border-radius: .5em;
+    transition: all .1s ease-in;
+    margin: 0 .6em;
+    padding: .6em;
+    margin-bottom: .5em;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.tab-item a {
+    text-decoration: none;
+    color: #343a40;
+}
+
+/* Cria o pseudo-elemento ::before */
+li:has(a.active)::after {
+    content: '';  /* O pseudo-elemento precisa de conteúdo, mesmo que seja vazio */
+    position: absolute;  /* Posiciona a linha na parte inferior */
+    bottom: -.5em;  /* Coloca a linha na parte inferior do <li> */
+    left: 0;
+    width: 100%;  /* A linha vai ter a largura total do <li> */
+    height: 2px;  /* Espessura da borda */
+    background-color: #343a40;  /* Cor da borda inferior */
+}
+
+.tab-item:hover{
+    background-color: #343a40;
+    opacity: 75%;
+}
+.tab-item:hover a{
+    color: #ffffff;
+}
+/* Ajuste de padding e borda para combinar melhor com o estilo do Bootstrap 5 */
+.select2-container--bootstrap-5 .select2-selection {
+    height: calc(2.25rem + 2px);  /* Ajusta a altura para combinar com o Bootstrap 5 */
+    padding: .375rem .75rem;       /* Adiciona padding para corresponder ao estilo */
+    border: 1px solid #ced4da;     /* Borda similar à do Bootstrap */
+    background-color: #fff;
+    border-radius: .375rem;        /* Borda arredondada do Bootstrap 5 */
+}
+
+.select2-container--bootstrap-5 .select2-dropdown {
+    border-radius: .375rem;  /* Borda arredondada para o dropdown */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Sombra suave para o dropdown */
 }
