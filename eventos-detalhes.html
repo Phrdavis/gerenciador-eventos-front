@@ -18,22 +18,25 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/eventos-detalhes.css">
     <script src="/js/script.js"></script>
     <script src="/js/eventos-detalhes.js"></script>
     <link rel="icon" type="image/png" href="https://img.icons8.com/?size=100&id=AkuCHGqveoj4&format=png&color=000000">
 </head>
 <body>
-    <div class="d-flex">
-        <aside id="sidebar-component"></aside>
+    <div class="principal-div d-flex">
+        <aside class="position-relative" id="sidebar-component"></aside>
+        <a id="toggle-sidebar-btn" class="toggle-sidebar">
+            <i class="bi bi-list"></i>
+        </a>
         <div class="content flex-grow-1">
-            <div class="d-flex justify-content-between align-items-center position-relative">
-                <nav aria-label="breadcrumb" class="mb-3 position-absolute" style="left: 0; top: 100%; margin-top: -10px;">
+            <div class="row m-0 justify-content-between align-items-center position-relative">
+                <nav aria-label="breadcrumb" class="list-links mb-3 position-absolute">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="eventos.html">Eventos</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Detalhes</li>
                     </ol>
                 </nav>
-
             </div>
             <div class="mt-5">
                 <ul class="tabs">

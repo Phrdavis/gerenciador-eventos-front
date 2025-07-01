@@ -1,6 +1,6 @@
 (function() {
-
     const currentPage = window.location.pathname.split('/').pop();
+    const sidebar = document.getElementById('sidebar-component');
 
     const sidebarItems = [
         {
@@ -38,9 +38,12 @@
     ];
 
     let sidebarHTML = `
+        <a id="close-btn">
+            <i class="bi bi-x-lg"></i> <!-- Ícone de menu (hamburger) -->
+        </a>
         <nav class="sidebar d-flex flex-column position-relative">
             <div class="d-flex justify-contente-center align-items-center">
-                <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="home.html" class="d-flex align-items-center mb-0 me-md-auto text-white text-decoration-none">
                     <img src="https://img.icons8.com/?size=100&id=AkuCHGqveoj4&format=png&color=000000" alt="Logo" width="32" height="32" class="me-2">
                     <span class="fs-4">EventEase</span>
                 </a>
@@ -58,38 +61,30 @@
             </li>`;
     });
 
-    // Sidebar do usuário (comentado para você personalizar conforme necessário)
-    /*
-    let user = null;
-    try {
-        user = JSON.parse(localStorage.getItem('user'));
-    } catch (e) {
-        user = null;
+    // Função para alternar a visibilidade da sidebar
+    function toggleSidebar() {
+        const toggleButton = document.getElementById('toggle-sidebar-btn');
+        const sidebar = document.querySelector('.sidebar');
+        const title = document.querySelector('.title');
+        const links = document.querySelector('.list-links');
+        toggleButton.classList.toggle('toggle-btn');
+        sidebar.classList.toggle('sidebar-expand');
+        if(title != null){
+            title.classList.toggle('title-responsive');
+        }
+        if(links != null){
+            links.classList.toggle('list-links-responsive');
+        }
     }
-    const userName = user && user.nome ? user.nome : 'Usuário';
-    */
-
-    function logout() {
-        localStorage.removeItem('user');
-    }
-
-    $(function() {
-
-        // Função para alternar a visibilidade da sidebar
-        $('#toggle-sidebar-close').on('click', function() {
-            $('#toggle-sidebar-open').removeClass('ocult')
-            $('.sidebar').addClass('sidebar-hidden');
-        });
-
-        // Função para alternar a visibilidade da sidebar
-        $('#toggle-sidebar-open').on('click', function() {
-            
-            $('#toggle-sidebar-open').addClass('visible')
-            $('.sidebar').removeClass('sidebar-hidden');
-        });
-    });
 
     // Adiciona o HTML da sidebar
-    document.getElementById('sidebar-component').innerHTML = sidebarHTML;
+    sidebar.innerHTML = sidebar.innerHTML + sidebarHTML;
 
+    // Lidar com o clique no botão de abrir a sidebar
+    document.getElementById('toggle-sidebar-btn').addEventListener('click', function() {
+        toggleSidebar();
+    });
+    document.getElementById('close-btn').addEventListener('click', function() {
+        toggleSidebar();
+    });
 })();

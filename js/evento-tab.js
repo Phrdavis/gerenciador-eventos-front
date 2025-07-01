@@ -12,7 +12,7 @@ $(document).ready(function () {
         
         $('#modalidade').select2({
             theme: 'bootstrap-5',  // Usa o tema do Bootstrap 4
-            placeholder: "Selecione um evento",  // Placeholder do campo de pesquisa
+            placeholder: "Selecione uma Modalidade",  // Placeholder do campo de pesquisa
         });
     }
 
@@ -36,10 +36,19 @@ $(document).ready(function () {
                 $('#local').val(evento.local || '');
                 $('#responsavel').val(evento.responsavel || '');
                 $('#telefoneResponsavel').val(evento.telefoneResponsavel || '');
+                evento.contrato != null ? carregarModalidades(evento.contrato.modalidades, evento.modalidade) : $('#modalidade').val(null);
             },
             error: function() {
                 alert('Não foi possível carregar o evento.');
             }
+        });
+    }
+
+    function carregarModalidades(modalidades, modalidadeSelecionada) {
+        $("#modalidade").empty();
+        modalidades.forEach(function(modalidade) {
+            $("#modalidade").append(new Option(modalidade.nome, modalidade.id, '',modalidadeSelecionada));
+
         });
     }
 

@@ -1,48 +1,134 @@
-
+/* Sidebar básica */
 .sidebar {
     width: 220px;
+    padding: 1em;
     height: 100vh;
     margin-right: 0;
     background: #343a40;
     color: #fff;
-    padding: 1em;
-    transition: width 0.3s ease;
     overflow: hidden;
+    transition: width 0.3s ease, padding 0.3s ease;
+    position: relative;
 }
+
+/* Estilo da sidebar aberta */
 .sidebar .nav-link {
     color: #adb5bd;
+    display: flex;
+    align-items: center;
 }
+
 .sidebar .nav-link.active, .sidebar .nav-link:hover {
     color: #fff;
     background: #495057;
 }
+
 .sidebar .nav-link i {
     margin-right: 8px;
 }
 
-/* Quando a sidebar for "escondida", ela terá uma largura de 0 e transição suave */
-.sidebar-hidden {
-    width: 0;
-    padding: 0;
-    margin-right: 2em;
-    overflow: hidden;
-    transition: width 0.3s ease;
+/* Botão para abrir/fechar a sidebar */
+.toggle-sidebar {
+    display: inline-block;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    color: #343a40;
 }
 
-.toggle-sidebar{
+/* Ajuste para os ícones do botão de alternância */
+#toggle-sidebar-btn {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    z-index: 100;
+    display: none;  /* Inicialmente oculto, será mostrado em mobile */
+}
+
+/* Ícone de hambúrguer */
+#toggle-sidebar-btn i {
+    font-size: 2rem;
+}
+/* Ajuste para os ícones do botão de alternância */
+#close-btn {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    z-index: 100;
+    color: #fff;
     cursor: pointer;
 }
 
-#toggle-sidebar-open{
-    position: absolute;
-    transition: width 0.3s ease;
+/* Ícone de hambúrguer */
+#close-btn i {
+    font-size: 1.5rem;
 }
 
-.ocult{
-    top: 0;
-    right: 100%;
+.sidebar-expand{
+    width: 220px;
+    padding: 1em;
 }
-.visible{
-    top: 20px;
-    left: 10px;
+
+.title-responsive{
+    margin-left: 0;
+    transition: all .3s ease;
+}
+
+.toggle-btn{
+    display: none;
+}
+
+.list-links{
+    top: 100%; 
+}
+
+.list-links-responsive{
+    left: 0; 
+}
+
+@media (max-width: 1000px) {
+    #toggle-sidebar-btn:not(.toggle-btn) {
+        display: block;  
+    }
+    .sidebar:not(.sidebar-expand){
+        width: 0px;
+        padding: 0;
+    }
+    .title:not(.title-responsive){
+        margin-left: 1em;
+        transition: all .3s ease;
+    }
+    .list-links:not(.list-links-responsive){
+        left: 50px; 
+        transition: all .3s ease;
+    }
+    .content{
+        padding-left: 10px!important;
+        padding-right: 10px!important;
+    }
+}
+
+@media (max-width: 575px) {
+
+    .sidebar {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .title:not(.title-responsive){
+        text-align: center;
+        margin: 0;
+    }
+
+}
+@media (min-width: 1000px) {
+    .sidebar {
+        width: 220px;
+        padding: 1em;
+    }
+    #close-btn{
+        display: none;
+    }
 }

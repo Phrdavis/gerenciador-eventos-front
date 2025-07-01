@@ -95,6 +95,7 @@ $(document).ready(async function () {
             },
             error: function (erro) {
                 $('#modalImportarArquivo').modal('hide');
+                console.log(erro.responseJSON)
                 appendAlert(erro.responseJSON.erro, "danger")
             }
         });

@@ -1,14 +1,13 @@
 body {
     min-height: 100vh;
     background-color: #f8f9fa;
+    overflow-x: hidden;
 }
 .content {
     padding: 32px;
-}
-
-.content{
     height: 100vh;
     overflow: auto;
+    overflow-x: hidden;
     box-sizing: border-box;
 }
 
@@ -128,6 +127,10 @@ li:has(a.active)::after {
 }
 .tab-item:hover a{
     color: #ffffff;
+}
+
+.select2-container--bootstrap-5{
+    width: 100%!important;
 }
 /* Ajuste de padding e borda para combinar melhor com o estilo do Bootstrap 5 */
 .select2-container--bootstrap-5 .select2-selection {
